@@ -27,7 +27,9 @@ namespace Retrospective.API
             services.AddSingleton<IRetroManagementSettings>(sp =>
                 sp.GetRequiredService<IOptions<RetroManagementSettings>>().Value);
 
-            services.AddSingleton<IRetroBoardRepository, RetroBoardRepository>();
+            services.AddSingleton<IRetroDataContext, RetroDataContext>();
+
+            services.AddScoped<IRetroBoardRepository, RetroBoardRepository>();
 
             services.AddControllers();
         }
