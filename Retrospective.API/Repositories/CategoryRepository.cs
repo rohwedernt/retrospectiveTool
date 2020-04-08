@@ -22,7 +22,7 @@ namespace Retrospective.API.Repositories
 
         public Category Get(int id)
         {
-            return _dataContext.Categories.Find(category => category.Id == id).FirstOrDefault();
+            return _dataContext.Categories.Find(category => category.Id == id.ToString()).FirstOrDefault();
         }
 
         public Category Create(Category category)

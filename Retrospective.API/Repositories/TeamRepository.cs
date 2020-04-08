@@ -22,7 +22,7 @@ namespace Retrospective.API.Repositories
 
         public Team Get(int id)
         {
-            return _dataContext.Teams.Find(team => team.Id == id).FirstOrDefault();
+            return _dataContext.Teams.Find(team => team.Id == id.ToString()).FirstOrDefault();
         }
 
         public Team Create(Team team)

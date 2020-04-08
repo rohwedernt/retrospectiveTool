@@ -22,7 +22,7 @@ namespace Retrospective.API.Repositories
 
         public ActionItem Get(int id)
         {
-            return _dataContext.ActionItems.Find(actionItem => actionItem.Id == id).FirstOrDefault();
+            return _dataContext.ActionItems.Find(actionItem => actionItem.Id == id.ToString()).FirstOrDefault();
         }
 
         public ActionItem Create(ActionItem actionItem)

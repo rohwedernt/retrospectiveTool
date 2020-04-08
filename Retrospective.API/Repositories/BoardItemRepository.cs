@@ -23,7 +23,7 @@ namespace Retrospective.API.Repositories
 
         public BoardItem Get(int id)
         {
-            return _dataContext.BoardItems.Find(boardItem => boardItem.Id == id).FirstOrDefault();
+            return _dataContext.BoardItems.Find(boardItem => boardItem.Id == id.ToString()).FirstOrDefault();
         }
 
         public BoardItem Create(BoardItem boardItem)
