@@ -7,7 +7,7 @@ namespace Retrospective.API.Repositories.Interfaces
     { 
         public List<RetroBoard> GetAll();
 
-        public RetroBoard Get(int id);
+        public RetroBoard Get(string id);
 
         public RetroBoard Create(RetroBoard retroBoard);
 
