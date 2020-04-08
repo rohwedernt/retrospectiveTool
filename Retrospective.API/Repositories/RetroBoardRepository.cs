@@ -20,7 +20,7 @@ namespace Retrospective.API.Repositories
             return _dataContext.RetroBoards.Find(retroBoard => true).ToList();
         }
 
-        public RetroBoard Get(int id)
+        public RetroBoard Get(string id)
         {
             return _dataContext.RetroBoards.Find(retroBoard => retroBoard.Id == id.ToString()).FirstOrDefault();
         }

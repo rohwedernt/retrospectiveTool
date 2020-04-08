@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Retrospective.API.Models;
-using Retrospective.API.Repositories;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API.Controllers
 {
@@ -61,7 +61,7 @@ namespace Retrospective.API.Controllers
                 return NotFound();
             }
 
-            _repo.Update(id, value);
+            _repo.Update(value);
 
             return NoContent();
         }
