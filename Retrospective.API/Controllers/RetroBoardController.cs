@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Retrospective.API.Models;
+using Retrospective.API.Repositories;
 
 namespace Retrospective.API.Controllers
 {
@@ -11,36 +13,73 @@ namespace Retrospective.API.Controllers
     [ApiController]
     public class RetroBoardController : ControllerBase
     {
+        private IRetroBoardRepository _repo;
+
+        public RetroBoardController(IRetroBoardRepository retroBoardRepository)
+        {
+            _repo = retroBoardRepository;
+        }
+
         // GET: api/Retro
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<RetroBoard> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repo.GetAll();
         }
 
         // GET: api/RetroBoard/5
         [HttpGet("{id}", Name = "GetRetro")]
-        public string Get(int id)
+        public ActionResult<RetroBoard> Get(string id)
         {
-            return "value";
+            var ret = _repo.Get(id);
+
+            if(ret == null)
+            {
+                return NotFound();
+            }
+
+            return ret;
         }
 
         // POST: api/RetroBoard
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<RetroBoard> Create([FromBody] RetroBoard board)
         {
+            _repo.Create(board);
+
+            return CreatedAtRoute("GetRetro", new { id = board.Id.ToString() }, board);
         }
 
         // PUT: api/RetroBoard/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(string id, [FromBody] RetroBoard value)
         {
+            var ret = _repo.Get(id);
+
+            if (ret == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Update(id, value);
+
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(string id)
         {
+            var board = _repo.Get(id);
+
+            if (board == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Remove(board);
+
+            return NoContent();
         }
     }
 }

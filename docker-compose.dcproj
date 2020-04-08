@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>3908a77b-49dc-48bb-8463-5acbf5c09f44</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/weatherforecast</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/repoboard</DockerServiceUrl>
     <DockerServiceName>retrospective.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
