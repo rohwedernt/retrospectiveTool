@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retrospective.API", "Retrospective.API\Retrospective.API.csproj", "{76B9F3E0-00A6-411B-9F09-1456A16C510D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76B9F3E0-00A6-411B-9F09-1456A16C510D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B9F3E0-00A6-411B-9F09-1456A16C510D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B9F3E0-00A6-411B-9F09-1456A16C510D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B9F3E0-00A6-411B-9F09-1456A16C510D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4C809EF-2D20-41EB-B028-18B7E72784A3}
+	EndGlobalSection
+EndGlobal
