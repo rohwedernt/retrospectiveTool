@@ -7,7 +7,7 @@ namespace Retrospective.API.Repositories.Interfaces
     {
         public List<ActionItem> GetAll();
 
-        public ActionItem Get(int id);
+        public ActionItem Get(string id);
 
         public ActionItem Create(ActionItem actionItem);
 
