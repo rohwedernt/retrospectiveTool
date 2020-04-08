@@ -33,19 +33,14 @@ namespace Retrospective.API.Repositories
             return retroBoard;
         }
 
-        public void Update(int id, RetroBoard retroBoard)
+        public void Update(RetroBoard retroBoard)
         {
-            _retroBoards.ReplaceOne(rb => rb.Id == id, retroBoard);
+            _retroBoards.ReplaceOne(rb => rb.Id == retroBoard.Id, retroBoard);
         }
 
         public void Remove(RetroBoard retroBoard)
         {
             _retroBoards.DeleteOne(rb => retroBoard.Id == rb.Id);
-        }
-
-        public void Remove(int id)
-        {
-            _retroBoards.DeleteOne(rb => rb.Id == id);
         }
     }
 }
