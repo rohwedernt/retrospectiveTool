@@ -21,9 +21,9 @@ namespace Retrospective.API.Repositories
             return _dataContext.BoardItems.Find(boardItem => true).ToList();
         }
 
-        public BoardItem Get(int id)
+        public BoardItem Get(string id)
         {
-            return _dataContext.BoardItems.Find(boardItem => boardItem.Id == id.ToString()).FirstOrDefault();
+            return _dataContext.BoardItems.Find(boardItem => boardItem.Id == id).FirstOrDefault();
         }
 
         public BoardItem Create(BoardItem boardItem)
