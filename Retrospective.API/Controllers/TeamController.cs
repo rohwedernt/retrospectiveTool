@@ -9,29 +9,29 @@ namespace Retrospective.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RetroController : ControllerBase
+    public class TeamController : ControllerBase
     {
-        // GET: api/Retro
+        // GET: api/Team
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Retro/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/Team/5
+        [HttpGet("{id}", Name = "GetTeam")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Retro
+        // POST: api/Team
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Retro/5
+        // PUT: api/Team/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
