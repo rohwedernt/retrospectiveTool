@@ -7,7 +7,7 @@ namespace Retrospective.API.Repositories.Interfaces
     {
         public List<Team> GetAll();
 
-        public Team Get(int id);
+        public Team Get(string id);
 
         public Team Create(Team team);
 
