@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import RetroCard from './RetroCard';
 
 const styles = {
     header: {
@@ -23,44 +23,38 @@ const styles = {
     itemsContainer: {
         display: "flex",
         flexDirection: "column"
-    },
-    item: {
-        marginBottom: "1rem"
     }
 }
 
 export default function RetroView(props) {
+    const [value, setValue] = useState("");
     const [items, setItems] = useState([]);
 
+    const handleInputChange = (e) => {
+        e.preventDefault();
+        setValue(e.currentTarget.value);
+    }
+
     const addItem = () => {
-        setItems([
-          ...items,
-          {
-            id: items.length,
-            value: "test card"
-          }
-        ]);
-      };
+        setItems([...items, { id: items.length, value: value }]);
+    };
+
+    const removeItem = (id) => {
+        setItems(items.filter(item => item.id !== id))
+    }
 
 	return (
         <div style={styles.categoryColumn}>
             <h2 style={styles.header}>{props.category.name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <Button variant="outline-secondary" onClick={() => addItem("test-test-test")}>+</Button>
+                    <Button variant="outline-secondary" onClick={() => addItem()}>+</Button>
                 </InputGroup.Prepend>
-                <FormControl type="text" placeholder="Add Item" />
+                <FormControl value={value} onChange={(e) => handleInputChange(e)} type="text" placeholder="Add Item" />
             </InputGroup>
             <div style={styles.itemsContainer}>
                 {items.map(item => (
-                    <Card key={item.id} style={styles.item} bg='light'>
-                        <Card.Body>
-                            <Card.Text>{item.value}</Card.Text>
-                        </Card.Body>
-                        <Card.Footer className="text-muted">
-                            <Button variant="outline-success" size="sm">+1</Button>
-                        </Card.Footer>
-                    </Card>
+                    <RetroCard item={item} removeItem={removeItem} />
                 ))}
             </div>
 

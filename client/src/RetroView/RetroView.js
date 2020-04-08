@@ -6,6 +6,10 @@ const styles = {
     page: {
 		padding: "2rem"
     },
+    header: {
+        marginBottom: "1rem",
+        textAlign: "center"
+    },
 	categoriesContainer: {
 		display: "flex", 
         flexDirection: "row",
@@ -18,9 +22,10 @@ const categories = [{name: "Liked"}, {name: "Learned"}, {name: "Lacked"}, {name:
 export default function RetroView(props) {
 	return (
         <div style={styles.page}>
-            <Button onClick={() => props.changeView("homeView")}>{`<- Home`}</Button>
+            <Button style={{ marginLeft: "2rem" }} onClick={() => props.changeView("homeView")}>{`<- Home`}</Button>
+            <h1 style={styles.header}>Retro Title</h1>
             <div style={styles.categoriesContainer}>
-                {categories.map(category => <RetroCategory category={category} />)}
+                {categories.map(category => <RetroCategory key={category} category={category} />)}
             </div>
         </div>
 
