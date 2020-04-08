@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using Retrospective.API.Models;
 using Retrospective.API.Mongo;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API.Repositories
 {

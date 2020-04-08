@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Retrospective.API.Mongo;
 using Retrospective.API.Repositories;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API
 {

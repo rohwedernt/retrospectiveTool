@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Retrospective.API.Models;
 
-namespace Retrospective.API.Repositories
+namespace Retrospective.API.Repositories.Interfaces
 {
     public interface ICategoryRepository
     {
