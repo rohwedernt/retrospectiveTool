@@ -8,7 +8,7 @@ namespace Retrospective.API.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [BsonElement("StartDate")]
         public DateTime StartDate { get; set; }

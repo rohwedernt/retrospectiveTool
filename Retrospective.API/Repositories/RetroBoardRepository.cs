@@ -2,50 +2,43 @@
 using MongoDB.Driver;
 using Retrospective.API.Models;
 using Retrospective.API.Mongo;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API.Repositories
 {
     public class RetroBoardRepository : IRetroBoardRepository
     {
-        private readonly IMongoCollection<RetroBoard> _retroBoards;
+        private readonly IRetroDataContext _dataContext;
 
-        public RetroBoardRepository(IRetroManagementSettings settings)
+        public RetroBoardRepository(IRetroDataContext dataContext)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-
-            _retroBoards = database.GetCollection<RetroBoard>(settings.RetroCollectionName);
+            _dataContext = dataContext;
         }
 
         public List<RetroBoard> GetAll()
         {
-            return _retroBoards.Find(retroBoard => true).ToList();
+            return _dataContext.RetroBoards.Find(retroBoard => true).ToList();
         }
 
         public RetroBoard Get(int id)
         {
-            return _retroBoards.Find(retroBoard => retroBoard.Id == id).FirstOrDefault();
+            return _dataContext.RetroBoards.Find(retroBoard => retroBoard.Id == id.ToString()).FirstOrDefault();
         }
 
         public RetroBoard Create(RetroBoard retroBoard)
         {
-            _retroBoards.InsertOne(retroBoard);
+            _dataContext.RetroBoards.InsertOne(retroBoard);
             return retroBoard;
         }
 
-        public void Update(int id, RetroBoard retroBoard)
+        public void Update(RetroBoard retroBoard)
         {
-            _retroBoards.ReplaceOne(rb => rb.Id == id, retroBoard);
+            _dataContext.RetroBoards.ReplaceOne(rb => rb.Id == retroBoard.Id, retroBoard);
         }
 
         public void Remove(RetroBoard retroBoard)
         {
-            _retroBoards.DeleteOne(rb => retroBoard.Id == rb.Id);
-        }
-
-        public void Remove(int id)
-        {
-            _retroBoards.DeleteOne(rb => rb.Id == id);
+            _dataContext.RetroBoards.DeleteOne(rb => retroBoard.Id == rb.Id);
         }
     }
 }

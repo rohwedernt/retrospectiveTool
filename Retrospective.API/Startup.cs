@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Retrospective.API.Mongo;
 using Retrospective.API.Repositories;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API
 {
@@ -27,7 +28,9 @@ namespace Retrospective.API
             services.AddSingleton<IRetroManagementSettings>(sp =>
                 sp.GetRequiredService<IOptions<RetroManagementSettings>>().Value);
 
-            services.AddSingleton<IRetroBoardRepository, RetroBoardRepository>();
+            services.AddSingleton<IRetroDataContext, RetroDataContext>();
+
+            services.AddScoped<IRetroBoardRepository, RetroBoardRepository>();
 
             services.AddControllers();
         }
