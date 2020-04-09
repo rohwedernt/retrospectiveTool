@@ -15,18 +15,19 @@ const styles = {
 	svg: {
 		maxHeight: "541px",
 		position: "absolute",
-		top: "-10px"
+		top: "19px"
 	},
 	header: {
-		fontFamily: 'Bellota Text', 
-		fontSize: "27px"
+		fontFamily: 'Bellota Text',
+		fontStyle: "bold",
+		fontSize: "28px"
 	},
 	logo: {
-        width: "188px",
-		height: "190px",
+        width: "250px",
+		height: "250px",
 		marginTop: "40px",
 		marginBottom: "15px",
-        boxShadow: "0 0 8px 8px white inset",
+		boxShadow: "0 0 25px 36px white inset",
         backgroundImage: `url("https://www.lakegeneva.lib.wi.us/wp-content/uploads/2019/08/novelist.jpg")`, 
         backgroundSize: "cover",
         backgroundPosition: "center"
@@ -43,9 +44,6 @@ const styles = {
 	},
 	button: {
 		marginBottom: "1rem"
-	},
-	dropdown: {
-		zIndex: "2 !important"
 	}
 }
 
@@ -64,7 +62,7 @@ export default function HomeView(props) {
 				<path fill="transparent" id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
 				<text width="500">
 				<textPath style={styles.header} xlinkHref="#curve">
-					Placeholder For A Clever App Name
+					Placeholder For Clever App Name
 				</textPath>
 				</text>
 			</svg>
