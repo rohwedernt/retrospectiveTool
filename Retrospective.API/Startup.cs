@@ -33,6 +33,8 @@ namespace Retrospective.API
             services.AddScoped<IRetroBoardRepository, RetroBoardRepository>();
             services.AddScoped<IActionItemRepository, ActionItemRepository>();
             services.AddScoped<IBoardItemRepository, BoardItemRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.UseMemberCasing());
