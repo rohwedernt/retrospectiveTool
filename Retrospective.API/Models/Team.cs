@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System.Collections.Generic;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Retrospective.API.Models
@@ -8,5 +9,11 @@ namespace Retrospective.API.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        [BsonElement("RetroBoardIds")]
+        public List<string> RetroBoardIds { get; set; }
+
+        [BsonElement("TeamName")]
+        public string TeamName { get; set; }
     }
 }
