@@ -45,7 +45,7 @@ export default function RetroView(props) {
 
 	return (
         <div style={styles.categoryColumn}>
-            <h2 style={styles.header}>{props.category.name}</h2>
+            <h2 style={styles.header}>{props.category.Name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
                     <Button variant="outline-secondary" onClick={() => addItem()}>+</Button>

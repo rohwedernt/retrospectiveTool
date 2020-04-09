@@ -7,6 +7,8 @@ namespace Retrospective.API.Repositories.Interfaces
     {
         public List<Category> GetAll();
 
+        public List<Category> GetByRetroId(string boardId);
+
         public Category Get(string id);
 
         public Category Create(Category category);

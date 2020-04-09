@@ -25,16 +25,9 @@ namespace Retrospective.API.Controllers
 
         // GET: api/Category/5
         [HttpGet("{id}", Name = "GetCategory")]
-        public ActionResult<Category> Get(string id)
+        public IEnumerable<Category> Get(string id)
         {
-            var ret = _repo.Get(id);
-
-            if (ret == null)
-            {
-                return NotFound();
-            }
-
-            return ret;
+            return _repo.GetByRetroId(id);
         }
 
         // POST: api/Category
