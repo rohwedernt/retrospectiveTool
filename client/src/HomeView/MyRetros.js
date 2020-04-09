@@ -21,6 +21,7 @@ const styles = {
 		justifyContent: "space-around",
 	},
 	retrosContainer: {
+        zIndex: "1",
 		width: "30%", 
 		border: "1px solid lightgrey",
 		borderTop: "none",
@@ -31,10 +32,6 @@ const styles = {
 		boxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
 		textAlign: "center",
 		width: "450px"
-	},
-	buttonContainer: {
-		display: "flex",
-		justifyContent: "center"
 	},
 	button: {
 		marginBottom: "1rem"

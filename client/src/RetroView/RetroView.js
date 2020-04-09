@@ -9,15 +9,35 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const styles = {
+    topSection: {
+        display: "flex",
+        justifyContent: "space-between",
+        background: "#f6f6f6",
+        paddingRight: "2rem",
+        marginBottom: "1rem",
+        borderBottom: "1px solid rgba(0,0,0,.1)"
+    },
+    logo: {
+        display: "inline-block",
+        width: "59px",
+        height: "71px",
+        boxShadow: "0 0 10px 10px #f6f6f6 inset",
+        backgroundImage: `url("https://www.lakegeneva.lib.wi.us/wp-content/uploads/2019/08/novelist.jpg")`, 
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
+    appName: {
+        position: "absolute",
+        top: "23px",
+        left: "60px",
+        fontWeight: "light", 
+        fontStyle: "italic"
+    },
     retroActions: {
-        background: "rgb(243, 243, 243)",
         display: "flex",
         justifyContent: "flex-end",
         paddingTop: "1rem",
-        paddingRight: "2rem",
-        paddingBottom: "1rem",
-        marginBottom: "1rem",
-        borderBottom: "1px solid rgba(0,0,0,.1)"
+        paddingBottom: "1rem"
     },
     header: {
         marginBottom: "1rem",
@@ -89,14 +109,23 @@ export default function RetroView(props) {
 
 	return (
         <div>
-            <div style={styles.retroActions}>
-                <Button style={styles.button} onClick={() => props.changeView("homeView")} variant="secondary">{`🡰 Home`}</Button>
-                <Button style={styles.button} onClick={() => handleShowActionItemModal()}>{`✚ Action Item`}</Button>
-                <Button style={styles.button} onClick={() => deleteBoard()} variant="danger">{`✘ Delete`}</Button>
+            <div style={styles.topSection}>
+                <div>
+                    <div style={styles.logo} />
+                    <div style={styles.appName}>Placeholder for a truly fantastic app name</div>
+                </div>
+                <div style={styles.retroActions}>
+                    <Button style={styles.button} onClick={() => props.changeView("homeView")} variant="secondary">{`🡰 Home`}</Button>
+                    <Button style={styles.button} onClick={() => handleShowActionItemModal()}>{`✚ Action Item`}</Button>
+                    <Button style={styles.button} onClick={() => deleteBoard()} variant="danger">{`✘ Delete`}</Button>
+                </div>
             </div>
+
             <h1 style={styles.header}>{board.BoardName}</h1>
             <div style={styles.categoriesContainer}>
-                {categories.map(category => <RetroCategory key={category.Id} category={category} boardId={board.Id} />)}
+                {categories.length >= 1 ? (
+                    categories.map(category => <RetroCategory key={category.Id} category={category} boardId={board.Id} />)
+                ) : <span>Could Not Load Retro Board :(</span>}
             </div>
             <Modal show={showActionItems} onHide={() => handleCloseActionItemModal()}>
                 <Modal.Header closeButton>
@@ -109,7 +138,7 @@ export default function RetroView(props) {
                             {actionItems.map((item, idx) => {
                                 return (
                                     <InputGroup key={`${item}-${idx}`} className="mb-3">
-                                        <FormControl readOnly value={item.Value} />
+                                        <FormControl readOnly value={item.Value} as="textarea" />
                                         <InputGroup.Append>
                                             <Button variant="outline-danger" onClick={() => handleRemove(idx, item.Id)}>✘</Button>
                                         </InputGroup.Append>
