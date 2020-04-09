@@ -64,11 +64,14 @@ export default function HomeView(props) {
 				<ListGroup defaultActiveKey="#link1">
 					<h4 style={styles.header}>My Retrospectives</h4>
 					<Button style={styles.button} variant="outline-primary" onClick={() => handleShowCreateDialog()}>Create New Retrospective</Button>
-					{retros && retros.map(retro => (
+					{retros.length > 1 ? (
+                        retros.map(retro => (
 						<ListGroup.Item key={retro.Id} action onClick={() =>props.changeView("retroview", retro.Id)}>
 							{retro.BoardName}
 						</ListGroup.Item>
-					))}
+                    ))) : 
+                        <span>Could Not Load Retros :(</span>
+                    }
 				</ListGroup>
 			</div>
 			<Modal show={showCreateDialog} onHide={handleCloseCreateDialog}>
