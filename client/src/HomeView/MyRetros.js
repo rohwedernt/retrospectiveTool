@@ -64,7 +64,7 @@ export default function HomeView(props) {
 				<ListGroup defaultActiveKey="#link1">
 					<h4 style={styles.header}>My Retrospectives</h4>
 					<Button style={styles.button} variant="outline-primary" onClick={() => handleShowCreateDialog()}>Create New Retrospective</Button>
-					{retros.length > 1 ? (
+					{retros.length >= 1 ? (
                         retros.map(retro => (
 						<ListGroup.Item key={retro.Id} action onClick={() =>props.changeView("retroview", retro.Id)}>
 							{retro.BoardName}
