@@ -20,6 +20,11 @@ namespace Retrospective.API.Repositories
             return _dataContext.Categories.Find(category => true).ToList();
         }
 
+        public List<Category> GetByRetroId(string id)
+        {
+            return _dataContext.Categories.Find(category => category.RetroBoardId == id).ToList();
+        }
+
         public Category Get(string id)
         {
             return _dataContext.Categories.Find(category => category.Id == id).FirstOrDefault();

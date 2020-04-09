@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import * as HttpClient from '../HttpClient';
+import { sendPost } from '../HttpClient';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
@@ -25,21 +25,21 @@ function generateBoardDates() {
     return dates;
 }
 
+function generateUid() {
+    return `${Math.random().toString().slice(2,14)}` + `${Math.random().toString().slice(2,14)}`;
+}
+
 export default function RetroView(props) {
     const [boardName, setBoardName] = useState("");
-    const [categories, setCategories] = useState([{ text: "" }]);
+    const [categories, setCategories] = useState([{id: "", text: "" }]);
 
     const createRetroBoard = () => {
         let dates = generateBoardDates();
-        props.handleClose();
-        return HttpClient.sendPost('retroboard', { startDate: dates.current, endDate: dates.future, boardName: boardName})
+        return sendPost('retroboard', { startDate: dates.current, endDate: dates.future, boardName: boardName})
             .then(data => {
-                categories.forEach(category => {
-                    return HttpClient.sendPost('category', {id: category.id, retroBoardId: data.Id, name: category.text});
-                })
+                categories.forEach(category => sendPost('category', {id: category.id, retroBoardId: data.Id, name: category.text}))
+                props.changeView("retroview", data.Id);
             });
-        
-        
     }
 
     const handleBoardNameChange = (e) => {
@@ -49,13 +49,16 @@ export default function RetroView(props) {
     const handleChange = (i, event) => {
         const values = [...categories];
         values[i].text = event.target.value;
+        if (values[i].id === "") {
+            values[i].id = generateUid();
+        }
+
         setCategories(values);
     }
 
     const handleAdd = () => {
-        let id = `${Math.random().toString().slice(2,14)}` + `${Math.random().toString().slice(2,14)}`;
         const values = [...categories];
-        values.push({ id: id, text: "" });
+        values.push({ id: generateUid(), text: "" });
         setCategories(values);
     }
 
