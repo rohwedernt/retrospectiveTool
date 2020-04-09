@@ -3,6 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import CreateRetroForm from './CreateRetroForm';
+import {sendGet} from '../HttpClient';
 
 const styles = {
 	page: {
@@ -40,9 +41,10 @@ const styles = {
 	}
 }
 
-const retros = [{name: "Retro I1"}, {name: "Another Retro"}, {name: "Retro for another team"}, {name: "Retro I4"}, {name: "samis retro"}]
+const dummyRetros = [{BoardName: "Retro I1", Id: 1}, {BoardName: "Another Retro", Id: 2}, {BoardName: "Retro for another team", Id: 3}, {BoardName: "Retro I4", Id: 4}, {BoardName: "samis retro", Id:5}]
 
 export default function HomeView(props) {
+	const [retros, setAvailableRetros] = useState(dummyRetros);
 	const [showCreateDialog, setShowCreatedialog] = useState(false);
 
 	const handleCloseCreateDialog = () => setShowCreatedialog(false);
@@ -50,6 +52,11 @@ export default function HomeView(props) {
 
 	const openRetro = (retro) => alert(`You opened the ${retro.name} board`);
 
+	sendGet('RetroBoard').then(boards => {
+		if(JSON.stringify(boards) !== JSON.stringify(retros)){
+			setAvailableRetros(boards)
+		}
+	});
 	return (
         <Fragment>
 			<div style={styles.retrosContainer}>
@@ -57,8 +64,8 @@ export default function HomeView(props) {
 					<h4 style={styles.header}>My Retrospectives</h4>
 					<Button style={styles.button} variant="outline-primary" onClick={() => handleShowCreateDialog()}>Create New Retrospective</Button>
 					{retros.map(retro => (
-						<ListGroup.Item key={retro.name} action onClick={() => openRetro(retro)}>
-							{retro.name}
+						<ListGroup.Item key={retro.Id} action onClick={() => openRetro(retro)}>
+							{retro.BoardName}
 						</ListGroup.Item>
 					))}
 				</ListGroup>
