@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Retrospective.API.Models;
+using Retrospective.API.Repositories.Interfaces;
 
 namespace Retrospective.API.Controllers
 {
@@ -11,36 +13,73 @@ namespace Retrospective.API.Controllers
     [ApiController]
     public class BoardItemController : ControllerBase
     {
-        // GET: api/Note
-        [HttpGet("{retroId}", Name = "GetNotes")]
-        public IEnumerable<string> Get(int retroId)
+        private readonly IBoardItemRepository _repo;
+
+        public BoardItemController(IBoardItemRepository boardItemRepository)
         {
-            return new string[] { "value1", "value2" };
+            _repo = boardItemRepository;
+        }
+
+        // GET: api/Note
+        [HttpGet]
+        public IEnumerable<BoardItem> Get(int retroId)
+        {
+            return _repo.GetAll();
         }
 
         // GET: api/Note/5
-        [HttpGet("{retroId}/{itemId}", Name = "GetNote")]
-        public string Get(int retroId, int itemId)
+        [HttpGet("{itemId}", Name = "GetNote")]
+        public ActionResult<BoardItem> Get(string itemId)
         {
-            return "value";
+            var ret = _repo.Get(itemId);
+
+            if (ret == null)
+            {
+                return NotFound();
+            }
+
+            return ret;
         }
 
         // POST: api/Note/1
-        [HttpPost("{retroId}")]
-        public void Post(int retroId, [FromBody] string value)
+        [HttpPost]
+        public ActionResult<RetroBoard> Create([FromBody] BoardItem value)
         {
+            _repo.Create(value);
+
+            return CreatedAtRoute("GetNote", new { id = value.Id.ToString() }, value);
         }
 
         // PUT: api/Note/1/5
-        [HttpPut("{retroId}/{itemId}")]
-        public void Put(int retroId, int itemId, [FromBody] string value)
+        [HttpPut("{itemId}")]
+        public IActionResult Update(string itemId, [FromBody] BoardItem value)
         {
+            var boardItem = _repo.Get(itemId);
+
+            if (boardItem == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Update(value);
+
+            return NoContent();
         }
 
         // DELETE: api/ApiWithActions/1/5
-        [HttpDelete("{retroId}/{itemId}")]
-        public void Delete(int retroId, int itemId)
+        [HttpDelete("{itemId}")]
+        public IActionResult Delete(int retroId, string itemId)
         {
+            var boardItem = _repo.Get(itemId);
+
+            if (boardItem == null)
+            {
+                return NotFound();
+            }
+
+            _repo.Remove(boardItem);
+
+            return NoContent();
         }
     }
 }

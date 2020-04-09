@@ -11,29 +11,28 @@ namespace Retrospective.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RetroBoardController : ControllerBase
+    public class ActionItemController : ControllerBase
     {
-        private readonly IRetroBoardRepository _repo;
+        private readonly IActionItemRepository _repo;
 
-        public RetroBoardController(IRetroBoardRepository retroBoardRepository)
+        public ActionItemController(IActionItemRepository actionItemRepository)
         {
-            _repo = retroBoardRepository;
+            _repo = actionItemRepository;
         }
-
-        // GET: api/Retro
+        // GET: api/ActionItem
         [HttpGet]
-        public IEnumerable<RetroBoard> Get()
+        public IEnumerable<ActionItem> Get()
         {
             return _repo.GetAll();
         }
 
-        // GET: api/RetroBoard/5
-        [HttpGet("{id}", Name = "GetRetro")]
-        public ActionResult<RetroBoard> Get(string id)
+        // GET: api/ActionItem/5
+        [HttpGet("{id}", Name = "GetActionItem")]
+        public ActionResult<ActionItem> Get(string id)
         {
             var ret = _repo.Get(id);
 
-            if(ret == null)
+            if (ret == null)
             {
                 return NotFound();
             }
@@ -41,22 +40,22 @@ namespace Retrospective.API.Controllers
             return ret;
         }
 
-        // POST: api/RetroBoard
+        // POST: api/ActionItem
         [HttpPost]
-        public ActionResult<RetroBoard> Create([FromBody] RetroBoard board)
+        public ActionResult<ActionItem> Create([FromBody] ActionItem value)
         {
-            _repo.Create(board);
+            _repo.Create(value);
 
-            return CreatedAtRoute("GetRetro", new { id = board.Id.ToString() }, board);
+            return CreatedAtRoute("GetActionItem", new { id = value.Id.ToString() }, value);
         }
 
-        // PUT: api/RetroBoard/5
+        // PUT: api/ActionItem/5
         [HttpPut("{id}")]
-        public IActionResult Update(string id, [FromBody] RetroBoard value)
+        public IActionResult Update(string id, [FromBody] ActionItem value)
         {
-            var board = _repo.Get(id);
+            var action = _repo.Get(id);
 
-            if (board == null)
+            if (action == null)
             {
                 return NotFound();
             }
@@ -70,14 +69,14 @@ namespace Retrospective.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-            var board = _repo.Get(id);
+            var action = _repo.Get(id);
 
-            if (board == null)
+            if (action == null)
             {
                 return NotFound();
             }
 
-            _repo.Remove(board);
+            _repo.Remove(action);
 
             return NoContent();
         }

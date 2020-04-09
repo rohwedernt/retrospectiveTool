@@ -20,9 +20,9 @@ namespace Retrospective.API.Repositories
             return _dataContext.ActionItems.Find(actionItem => true).ToList();
         }
 
-        public ActionItem Get(int id)
+        public ActionItem Get(string id)
         {
-            return _dataContext.ActionItems.Find(actionItem => actionItem.Id == id.ToString()).FirstOrDefault();
+            return _dataContext.ActionItems.Find(actionItem => actionItem.Id == id).FirstOrDefault();
         }
 
         public ActionItem Create(ActionItem actionItem)

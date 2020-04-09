@@ -31,6 +31,8 @@ namespace Retrospective.API
             services.AddSingleton<IRetroDataContext, RetroDataContext>();
 
             services.AddScoped<IRetroBoardRepository, RetroBoardRepository>();
+            services.AddScoped<IActionItemRepository, ActionItemRepository>();
+            services.AddScoped<IBoardItemRepository, BoardItemRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
 
