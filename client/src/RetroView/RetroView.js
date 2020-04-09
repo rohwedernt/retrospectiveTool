@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { sendGet } from '../HttpClient';
+import { sendGet, sendDelete } from '../HttpClient';
 import RetroCategory from './RetroCategory';
 import Button from 'react-bootstrap/Button';
 
@@ -36,13 +36,19 @@ export default function RetroView(props) {
         sendGet(`category/${props.retroBoardId}`).then(data => {
             setCategories(data);
         });
-    }, );
+    }, []);
+
+    const deleteBoard = () => {
+        return sendDelete(`retroboard/${props.retroBoardId}`).then(() => {
+            props.changeView();
+        });
+    }
 
 	return (
         <div style={styles.page}>
             <div style={styles.retroActions}>
                 <Button style={{ marginLeft: "2rem" }} onClick={() => props.changeView("homeView")}>{`🡰 Home`}</Button>
-                <Button style={{ marginRight: "2rem" }} variant="danger">{`✘ Delete`}</Button>
+                <Button style={{ marginRight: "2rem" }} onClick={() => deleteBoard()} variant="danger">{`✘ Delete`}</Button>
             </div>
             <h1 style={styles.header}>{board.BoardName}</h1>
             <div style={styles.categoriesContainer}>
