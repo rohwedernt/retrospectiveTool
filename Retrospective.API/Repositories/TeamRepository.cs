@@ -20,9 +20,9 @@ namespace Retrospective.API.Repositories
             return _dataContext.Teams.Find(team => true).ToList();
         }
 
-        public Team Get(int id)
+        public Team Get(string id)
         {
-            return _dataContext.Teams.Find(team => team.Id == id.ToString()).FirstOrDefault();
+            return _dataContext.Teams.Find(team => team.Id == id).FirstOrDefault();
         }
 
         public Team Create(Team team)
