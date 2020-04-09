@@ -27,7 +27,7 @@ const styles = {
 		height: "250px",
 		marginTop: "40px",
 		marginBottom: "15px",
-		boxShadow: "0 0 25px 36px white inset",
+		boxShadow: "0 0 20px 40px white inset",
         backgroundImage: `url("https://www.lakegeneva.lib.wi.us/wp-content/uploads/2019/08/novelist.jpg")`, 
         backgroundSize: "cover",
         backgroundPosition: "center"
