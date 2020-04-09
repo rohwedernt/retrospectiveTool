@@ -21,7 +21,7 @@ const styles = {
 	},
 	retrosContainer: {
 		width: "30%", 
-		border: "2px solid lightgrey",
+		border: "1px solid lightgrey",
 		borderTop: "none",
 		borderRadius: "8px", 
 		padding: "2rem",

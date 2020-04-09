@@ -27,7 +27,7 @@ export default function RetroCard(props) {
             <Card.Footer style={styles.cardFooter} className="text-muted">
                 <Button style={styles.button} variant="outline-info" size="sm" onClick={() => setNumOfVotes(numOfVotes + 1)}>+1</Button>
                 <Button style={styles.button} variant="outline-info" size="sm" onClick={() => setNumOfVotes(numOfVotes - 1)}>-1</Button>
-                <Button style={styles.button} variant="outline-danger" size="sm" onClick={() => props.removeItem(props.item.id)}>X</Button>
+                <Button style={styles.button} variant="outline-danger" size="sm" onClick={() => props.removeItem(props.item.id)}>✘</Button>
             </Card.Footer>
         </Card>
 	);
