@@ -8,5 +8,8 @@ namespace Retrospective.API.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+
+        [BsonElement("TeamName")]
+        public string TeamName { get; set; }
     }
 }
