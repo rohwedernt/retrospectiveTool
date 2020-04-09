@@ -3,6 +3,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import RetroCard from './RetroCard';
+import * as HttpClient from '../HttpClient';
 
 const styles = {
     header: {
@@ -35,8 +36,18 @@ export default function RetroView(props) {
         setValue(e.currentTarget.value);
     }
 
-    const addItem = () => {
-        setItems([...items, { id: items.length, value: value }]);
+    const addItem = (categoryId, boardId) => {
+        var newItem = {
+            categoryId: categoryId,
+            retroBoardId: boardId,
+            value: value,
+            likes: 0
+        };
+        HttpClient.sendPost('boarditem', newItem).then(data => {
+            debugger;
+            setItems([...items, data]);
+        });
+
     };
 
     const removeItem = (id) => {
@@ -48,7 +59,7 @@ export default function RetroView(props) {
             <h2 style={styles.header}>{props.category.Name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <Button variant="outline-secondary" onClick={() => addItem()}>+</Button>
+                    <Button variant="outline-secondary" onClick={() => addItem(props.category.id, props.boardId)}>+</Button>
                 </InputGroup.Prepend>
                 <FormControl value={value} onChange={(e) => handleInputChange(e)} type="text" placeholder="Add Item" />
             </InputGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Retrospective.API.Models;
 using Retrospective.API.Repositories.Interfaces;
@@ -28,7 +24,7 @@ namespace Retrospective.API.Controllers
         }
 
         // GET: api/Note/5
-        [HttpGet("{itemId}", Name = "GetNote")]
+        [HttpGet("{itemId}", Name = "GetBoardItem")]
         public ActionResult<BoardItem> Get(string itemId)
         {
             var ret = _repo.Get(itemId);
@@ -47,7 +43,7 @@ namespace Retrospective.API.Controllers
         {
             _repo.Create(value);
 
-            return CreatedAtRoute("GetNote", new { id = value.Id.ToString() }, value);
+            return CreatedAtRoute("GetBoardItem", new { itemId = value.Id }, value);
         }
 
         // PUT: api/Note/1/5

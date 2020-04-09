@@ -22,12 +22,12 @@ export default function RetroCard(props) {
         <Card key={props.item.id} style={styles.item} bg='light'>
             {numOfVotes ? (<Card.Header>{numOfVotes}</Card.Header>) : null}
             <Card.Body>
-                <Card.Text>{props.item.value}</Card.Text>
+                <Card.Text>{props.item.Value}</Card.Text>
             </Card.Body>
             <Card.Footer style={styles.cardFooter} className="text-muted">
                 <Button style={styles.button} variant="outline-info" size="sm" onClick={() => setNumOfVotes(numOfVotes + 1)}>+1</Button>
                 <Button style={styles.button} variant="outline-info" size="sm" onClick={() => setNumOfVotes(numOfVotes - 1)}>-1</Button>
-                <Button style={styles.button} variant="outline-danger" size="sm" onClick={() => props.removeItem(props.item.id)}>✘</Button>
+                <Button style={styles.button} variant="outline-danger" size="sm" onClick={() => props.removeItem(props.item.Id)}>✘</Button>
             </Card.Footer>
         </Card>
 	);
