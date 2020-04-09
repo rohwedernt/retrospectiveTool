@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import RetroCard from './RetroCard';
+import * as HttpClient from '../HttpClient';
 
 const styles = {
     header: {
@@ -35,27 +36,46 @@ export default function RetroView(props) {
         setValue(e.currentTarget.value);
     }
 
-    const addItem = () => {
-        setItems([...items, { id: items.length, value: value }]);
+    const addItem = (categoryId, boardId) => {
+        var newItem = {
+            categoryId: categoryId,
+            retroBoardId: boardId,
+            value: value,
+            likes: 0
+        };
+        HttpClient.sendPost('boarditem', newItem).then(data => {
+            setItems([...items, data]);
+        });
+
     };
 
     const removeItem = (id) => {
         setItems(items.filter(item => item.id !== id))
     }
 
+    useEffect(() => {
+        HttpClient.sendGet(`BoardItem/${props.category.Id}`).then(boardItems => {
+            if(JSON.stringify(boardItems) !== JSON.stringify(items)){
+                setItems(boardItems)
+            }
+        });
+    }, []);
+
 	return (
         <div style={styles.categoryColumn}>
             <h2 style={styles.header}>{props.category.Name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <Button variant="outline-secondary" onClick={() => addItem()}>+</Button>
+                    <Button variant="outline-secondary" onClick={() => addItem(props.category.Id, props.boardId)}>+</Button>
                 </InputGroup.Prepend>
                 <FormControl value={value} onChange={(e) => handleInputChange(e)} type="text" placeholder="Add Item" />
             </InputGroup>
             <div style={styles.itemsContainer}>
-                {items.map(item => (
-                    <RetroCard item={item} removeItem={removeItem} />
-                ))}
+                {items.length >= 1 ? (
+                    items.map(item => (<RetroCard item={item} removeItem={removeItem} />
+                ))) :   
+                    <span>Could Not Load Items :(</span>
+                }
             </div>
 
         </div>
