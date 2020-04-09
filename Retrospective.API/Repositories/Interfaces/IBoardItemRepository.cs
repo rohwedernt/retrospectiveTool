@@ -9,6 +9,8 @@ namespace Retrospective.API.Repositories.Interfaces
 
         public BoardItem Get(string id);
 
+        public List<BoardItem> GetByCategoryId(string id);
+
         public BoardItem Create(BoardItem boardItem);
 
         public void Update(BoardItem boardItem);

@@ -18,32 +18,22 @@ namespace Retrospective.API.Controllers
 
         // GET: api/Note
         [HttpGet]
-        public IEnumerable<BoardItem> Get(int retroId)
+        public IEnumerable<BoardItem> Get()
         {
             return _repo.GetAll();
         }
 
-        // GET: api/Note/5
-        [HttpGet("{itemId}", Name = "GetBoardItem")]
-        public ActionResult<BoardItem> Get(string itemId)
+        [HttpGet("{categoryId}", Name = "GetBoardItem")]
+        public IEnumerable<BoardItem> Get(string categoryId)
         {
-            var ret = _repo.Get(itemId);
-
-            if (ret == null)
-            {
-                return NotFound();
-            }
-
-            return ret;
+            return _repo.GetByCategoryId(categoryId);
         }
 
         // POST: api/Note/1
         [HttpPost]
-        public ActionResult<RetroBoard> Create([FromBody] BoardItem value)
+        public ActionResult<BoardItem> Create([FromBody] BoardItem value)
         {
-            _repo.Create(value);
-
-            return CreatedAtRoute("GetBoardItem", new { itemId = value.Id }, value);
+            return _repo.Create(value);
         }
 
         // PUT: api/Note/1/5

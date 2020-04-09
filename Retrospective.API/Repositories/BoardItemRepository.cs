@@ -26,6 +26,11 @@ namespace Retrospective.API.Repositories
             return _dataContext.BoardItems.Find(boardItem => boardItem.Id == id).FirstOrDefault();
         }
 
+        public List<BoardItem> GetByCategoryId(string id)
+        {
+            return _dataContext.BoardItems.Find(boardItem => boardItem.CategoryId == id).ToList();
+        }
+
         public BoardItem Create(BoardItem boardItem)
         {
             _dataContext.BoardItems.InsertOne(boardItem);
