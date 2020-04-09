@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import * as HttpClient from '../HttpClient';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
@@ -11,12 +12,38 @@ const styles = {
     }
 }
 
-export default function RetroView(props) {
-    const [title, setTitle] = useState("");
-    const [categories, setCategories] = useState([{ text: null }]);
+function generateBoardDates() {
+    let dates = {};
 
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
+    let currentDate=new Date();
+    let futureDate=new Date(currentDate);
+    futureDate.setDate(futureDate.getDate()+ 14);
+
+    dates.current = currentDate;
+    dates.future = futureDate;
+
+    return dates;
+}
+
+export default function RetroView(props) {
+    const [boardName, setBoardName] = useState("");
+    const [categories, setCategories] = useState([{ text: "" }]);
+
+    const createRetroBoard = () => {
+        let dates = generateBoardDates();
+        props.handleClose();
+        return HttpClient.sendPost('retroboard', { startDate: dates.current, endDate: dates.future, boardName: boardName})
+            .then(data => {
+                categories.forEach(category => {
+                    return HttpClient.sendPost('category', {id: category.id, retroBoardId: data.Id, name: category.text});
+                })
+            });
+        
+        
+    }
+
+    const handleBoardNameChange = (e) => {
+        setBoardName(e.target.value);
     }
 
     const handleChange = (i, event) => {
@@ -26,8 +53,9 @@ export default function RetroView(props) {
     }
 
     const handleAdd = () => {
+        let id = `${Math.random().toString().slice(2,14)}` + `${Math.random().toString().slice(2,14)}`;
         const values = [...categories];
-        values.push({ text: null });
+        values.push({ id: id, text: "" });
         setCategories(values);
     }
 
@@ -45,8 +73,8 @@ export default function RetroView(props) {
             <Modal.Body>
                 <Form>
                     <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Title</Form.Label>
-                        <Form.Control value={title} onChange={(e) => handleTitleChange(e)} type="text" placeholder="Enter Title" />
+                    <Form.Label>Board Name</Form.Label>
+                        <Form.Control value={boardName} onChange={(e) => handleBoardNameChange(e)} type="text" placeholder="Enter Board Name" />
                     </Form.Group>
                     <Form.Label>Categories</Form.Label>
                     {categories.map((category, idx) => {
@@ -71,8 +99,7 @@ export default function RetroView(props) {
                 <Button variant="secondary" onClick={props.handleClose}>
                     Cancel
                 </Button>
-                {/* this will call method to create retro on backend then render retro board of id blah */}
-                <Button variant="primary" onClick={() => props.changeView("retroview")}>
+                <Button variant="primary" onClick={() => createRetroBoard()}>
                     Create
                 </Button>
             </Modal.Footer>
