@@ -61,11 +61,11 @@ export default function RetroCard(props) {
             </Card.Body>
             <Card.Footer style={styles.cardFooter} className="text-muted">
                 <ButtonGroup>
-                    <Button style={styles.button} variant="outline-secondary" size="sm" onClick={() => updateItemLikes(props.item, -1)}>
-                        <InlineIcon icon={thumbsDown} width="1em" height="1em"/>
-                    </Button>
                     <Button style={styles.button} variant="outline-primary" size="sm" onClick={() => updateItemLikes(props.item, 1)}>
                         <InlineIcon icon={thumbsUp} width="1em" height="1em"/>
+                    </Button>
+                    <Button style={styles.button} variant="outline-secondary" size="sm" onClick={() => updateItemLikes(props.item, -1)}>
+                        <InlineIcon icon={thumbsDown} width="1em" height="1em"/>
                     </Button>
                 </ButtonGroup>
                 <Button style={styles.removeButton} variant="link" size="sm" onClick={() => props.removeItem(props.item.Id)}>
