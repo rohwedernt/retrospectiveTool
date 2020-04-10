@@ -7,6 +7,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Alert from 'react-bootstrap/Alert';
 import { InlineIcon } from '@iconify/react';
 import deleteIcon from '@iconify/icons-mdi/delete';
 import {exportActionItems} from '../RallyClient';
@@ -53,6 +54,9 @@ const styles = {
     },
     button: {
         marginLeft: "2rem"
+    },
+    alert: {
+        padding: '6px'
     }
 }
 
@@ -62,6 +66,9 @@ export default function RetroView(props) {
     const [actionItems, setActionItems] = useState([]);
     const [showActionItems, setShowActionItems] = useState(false);
     const [value, setValue] = useState("");
+    const [showToast, setShowToast] = useState(false);
+  
+    const toggleShowToast = () => setShowToast(!showToast);
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -78,7 +85,11 @@ export default function RetroView(props) {
 
     const handleCloseActionItemModal = () => setShowActionItems(false);
     const handleShowActionItemModal = () => setShowActionItems(true);
-    const handleExportActionItemModal = () => exportActionItems(actionItems);
+    const handleExportActionItemModal = () => {
+        exportActionItems(actionItems);
+        toggleShowToast();
+        setTimeout(() => { setShowToast(false); }, 3000);
+    }
 
     useEffect(() => {
         // Get Board
@@ -158,18 +169,21 @@ export default function RetroView(props) {
                         </Form.Group>
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-secondary" onClick={() => handleCloseActionItemModal()}>
-                        Cancel
-                    </Button>
-                    <Button variant="outline-primary" onClick={() => handleExportActionItemModal()}>
-                        Export
-                    </Button>
-                    <Button variant="primary" onClick={() => postActionItem()}>
-                        {`Add +`}
-                    </Button>
+                <Modal.Footer style={styles.modalFooter}>
+                        <Alert style={styles.alert} show={showToast} onClose={toggleShowToast} variant='success'>Action items exported to Rally</Alert>
+                        <Button variant="outline-secondary" onClick={() => handleCloseActionItemModal()}>
+                            Cancel
+                        </Button>
+                        <Button variant="outline-primary" onClick={() => handleExportActionItemModal()}>
+                            Export
+                        </Button>
+                        <Button variant="primary" onClick={() => postActionItem()}>
+                            {`Add +`}
+                        </Button>
                 </Modal.Footer>
+
             </Modal>
+
         </div>
 	);
 }
