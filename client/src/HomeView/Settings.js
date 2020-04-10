@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 const styles = {
 	settingsContainer: {
+		zIndex: "1",
 		width: "30%", 
 		border: "1px solid lightgrey",
 		borderTop: "none",

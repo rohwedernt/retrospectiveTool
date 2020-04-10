@@ -2,6 +2,7 @@ import React from 'react';
 
 const styles = {
 	analyticsContainer: {
+		zIndex: "1",
 		width: "30%", 
 		border: "1px solid lightgrey",
 		borderTop: "none",

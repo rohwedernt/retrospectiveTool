@@ -12,27 +12,33 @@ const styles = {
 		alignItems: "center", 
 		padding: "2rem"
 	},
-	header: {
-		marginBottom: "1rem"
+	svg: {
+		maxHeight: "541px",
+		position: "absolute",
+		top: "19px"
 	},
+	header: {
+		fontFamily: 'Bellota Text',
+		fontStyle: "bold",
+		fontSize: "28px"
+	},
+	logo: {
+        width: "250px",
+		height: "250px",
+		marginTop: "40px",
+		marginBottom: "15px",
+		boxShadow: "0 0 20px 30px white inset",
+        backgroundImage: `url("https://www.lakegeneva.lib.wi.us/wp-content/uploads/2019/08/novelist.jpg")`, 
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+    },
 	contentContainer: {
 		display: "flex",
 		flexDirection: "row",
 		justifyContent: "space-around",
 	},
-	retrosContainer: {
-		width: "30%", 
-		border: "2px solid lightgrey",
-		borderTop: "none",
-		borderRadius: "8px", 
-		padding: "2rem",
-		display: "flex",
-		justifyContent: "center",
-		boxShadow: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
-		textAlign: "center",
-		width: "450px"
-	},
 	buttonContainer: {
+		zIndex: "1",
 		display: "flex",
 		justifyContent: "center"
 	},
@@ -41,6 +47,8 @@ const styles = {
 	}
 }
 
+function renderTitle() {}
+
 
 export default function HomeView(props) {
 	const [view, setView] = useState("my-retros");
@@ -48,7 +56,16 @@ export default function HomeView(props) {
 
 	return (
 		<div style={styles.page}>
-			<h1 style={styles.header}>NoveList Retrospective Tool</h1>
+			<div style={styles.logo} />
+			{/* <h1 style={styles.header}>Placeholder for clever app name</h1> */}
+			<svg style={styles.svg} viewBox="0 0 500 500">
+				<path fill="transparent" id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+				<text width="500">
+				<textPath style={styles.header} xlinkHref="#curve">
+					Placeholder For Clever App Name
+				</textPath>
+				</text>
+			</svg>
 			<div style={styles.buttonContainer}>
 				<Nav style={{ width: "436px" }} fill variant="tabs" defaultActiveKey="my-retros">
 					<Nav.Item>
@@ -60,12 +77,7 @@ export default function HomeView(props) {
 					<Nav.Item>
 						<Nav.Link eventKey="settings" onClick={() => setView("settings")}>Settings</Nav.Link>
 					</Nav.Item>
-					<NavDropdown title="Profile" id="nav-dropdown">
-						<NavDropdown.Item eventKey="preferences">Preferences</NavDropdown.Item>
-						<NavDropdown.Item eventKey="my-notes">My Notes</NavDropdown.Item>
-						<NavDropdown.Divider />
-						<NavDropdown.Item eventKey="logout">Logout</NavDropdown.Item>
-					</NavDropdown>
+					<NavDropdown style={styles.dropdown} title="Profile" id="nav-dropdown" disabled />
 				</Nav>
 			</div>
 			{view === "my-retros" && <MyRetros changeView={props.changeView} />}

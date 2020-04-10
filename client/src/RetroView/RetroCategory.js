@@ -45,12 +45,14 @@ export default function RetroView(props) {
         };
         HttpClient.sendPost('boarditem', newItem).then(data => {
             setItems([...items, data]);
+            setValue("");
         });
 
     };
 
     const removeItem = (id) => {
-        setItems(items.filter(item => item.id !== id))
+        HttpClient.sendDelete(`BoardItem/${id}`);
+        setItems(items.filter(item => item.id !== id));
     }
 
     useEffect(() => {
@@ -59,23 +61,19 @@ export default function RetroView(props) {
                 setItems(boardItems)
             }
         });
-    }, []);
+    }, [items]);
 
 	return (
         <div style={styles.categoryColumn}>
             <h2 style={styles.header}>{props.category.Name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <Button variant="outline-secondary" onClick={() => addItem(props.category.Id, props.boardId)}>+</Button>
+                    <Button variant="primary" onClick={() => addItem(props.category.Id, props.boardId)}>+</Button>
                 </InputGroup.Prepend>
                 <FormControl value={value} onChange={(e) => handleInputChange(e)} type="text" placeholder="Add Item" />
             </InputGroup>
             <div style={styles.itemsContainer}>
-                {items.length >= 1 ? (
-                    items.map(item => (<RetroCard item={item} removeItem={removeItem} />
-                ))) :   
-                    <span>Could Not Load Items :(</span>
-                }
+                   {items.map(item => <RetroCard key={item.Id} item={item} removeItem={removeItem} />)}
             </div>
 
         </div>
