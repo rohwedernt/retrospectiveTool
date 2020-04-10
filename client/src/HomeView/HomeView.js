@@ -25,7 +25,7 @@ const styles = {
 	logo: {
         width: "250px",
 		height: "250px",
-		marginTop: "40px",
+		marginTop: "30px",
 		marginBottom: "15px",
 		boxShadow: "0 0 20px 40px white inset",
         backgroundImage: `url("https://www.lakegeneva.lib.wi.us/wp-content/uploads/2019/08/novelist.jpg")`, 
