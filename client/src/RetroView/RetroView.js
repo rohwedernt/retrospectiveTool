@@ -158,14 +158,14 @@ export default function RetroView(props) {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleCloseActionItemModal()}>
+                    <Button variant="outline-secondary" onClick={() => handleCloseActionItemModal()}>
                         Cancel
                     </Button>
                     <Button variant="outline-primary" onClick={() => handleCloseActionItemModal()}>
                         Export
                     </Button>
                     <Button variant="primary" onClick={() => postActionItem()}>
-                        Add
+                        {`Add +`}
                     </Button>
                 </Modal.Footer>
             </Modal>
