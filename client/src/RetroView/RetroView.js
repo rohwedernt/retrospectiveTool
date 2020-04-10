@@ -9,7 +9,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { InlineIcon } from '@iconify/react';
 import deleteIcon from '@iconify/icons-mdi/delete';
-import arrowLeft from '@iconify/icons-mdi/arrow-left';
+import {exportActionItems} from '../RallyClient';
 
 const styles = {
     topSection: {
@@ -78,6 +78,7 @@ export default function RetroView(props) {
 
     const handleCloseActionItemModal = () => setShowActionItems(false);
     const handleShowActionItemModal = () => setShowActionItems(true);
+    const handleExportActionItemModal = () => exportActionItems(actionItems);
 
     useEffect(() => {
         // Get Board
@@ -161,7 +162,7 @@ export default function RetroView(props) {
                     <Button variant="outline-secondary" onClick={() => handleCloseActionItemModal()}>
                         Cancel
                     </Button>
-                    <Button variant="outline-primary" onClick={() => handleCloseActionItemModal()}>
+                    <Button variant="outline-primary" onClick={() => handleExportActionItemModal()}>
                         Export
                     </Button>
                     <Button variant="primary" onClick={() => postActionItem()}>
