@@ -15,8 +15,7 @@ export function exportActionItems(actionItems){
     actionItems.map((item, idx) => client.create({
         type: 'hierarchicalrequirement',
         data:{
-            Name: 'action item ' + idx,
-            Description: item.Value
+            Name: item.Value
         }
     })
     );
