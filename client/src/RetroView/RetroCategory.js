@@ -68,7 +68,7 @@ export default function RetroView(props) {
             <h2 style={styles.header}>{props.category.Name}</h2>
             <InputGroup className="mb-3">
                 <InputGroup.Prepend>
-                    <Button variant="outline-secondary" onClick={() => addItem(props.category.Id, props.boardId)}>+</Button>
+                    <Button variant="primary" onClick={() => addItem(props.category.Id, props.boardId)}>+</Button>
                 </InputGroup.Prepend>
                 <FormControl value={value} onChange={(e) => handleInputChange(e)} type="text" placeholder="Add Item" />
             </InputGroup>

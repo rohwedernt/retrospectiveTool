@@ -7,6 +7,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { InlineIcon } from '@iconify/react';
+import deleteIcon from '@iconify/icons-mdi/delete';
+import arrowLeft from '@iconify/icons-mdi/arrow-left';
 
 const styles = {
     topSection: {
@@ -115,9 +118,9 @@ export default function RetroView(props) {
                     <div style={styles.appName}>Placeholder for a truly fantastic app name</div>
                 </div>
                 <div style={styles.retroActions}>
-                    <Button style={styles.button} onClick={() => props.changeView("homeView")} variant="secondary">{`🡰 Home`}</Button>
-                    <Button style={styles.button} onClick={() => handleShowActionItemModal()}>{`✚ Action Item`}</Button>
-                    <Button style={styles.button} onClick={() => deleteBoard()} variant="danger">{`✘ Delete`}</Button>
+                    <Button style={styles.button} onClick={() => props.changeView("homeView")} variant="outline-secondary">{`🡰 Home`}</Button>
+                    <Button style={styles.button} onClick={() => handleShowActionItemModal()} variant="outline-primary">{`✚ Action Item`}</Button>
+                    <Button style={styles.button} onClick={() => deleteBoard()} variant="outline-danger"><InlineIcon icon={deleteIcon} />{` Delete`}</Button>
                 </div>
             </div>
 
